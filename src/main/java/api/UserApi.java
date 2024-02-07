@@ -8,36 +8,43 @@ import io.restassured.response.Response;
 import static io.restassured.RestAssured.given;
 import static pageObject.MainPage.BASE_URI;
 
-public class User {
+public class UserApi {
     private static final String USER_REGISTER = "/api/auth/register"; // эндпоинт для регистрации
     private static final String USER_LOGIN = "/api/auth/login"; // эндпоинт для авторизации
     private static final String USER_LOGOUT = "/api/auth/login"; // эндпоинт для для выхода из системы
     private static final String USER_TOKEN = "/api/auth/token"; // эндпоинт для обновления токена
     private static final String USER_INFO = "/api/auth/user"; // эндпоинт для получения/обновления/удаления данных о пользователе
 
-    @Step("Send POST request to /api/auth/register")
-    public Response re(NewUserData newUserData) {
-        Response response = given()
-                .baseUri(BASE_URI)
-                .contentType(ContentType.JSON)
-                .body(newUserData)
-                .post(USER_REGISTER);
+    @Step("Create user(api)")
+    public Response createNewUser(NewUserData newUserData) {
+        Response response =
+                given()
+                        .baseUri(BASE_URI)
+                        .contentType(ContentType.JSON)
+                        .body(newUserData)
+                        .post(USER_REGISTER);
         return response;
     }
-    @Step("Send POST request to /api/auth/login")
-    public Response sendPostRequestUserLogin(NewUserData newUserData) {
+
+    @Step("Login user(api)")
+    public Response loginUser(NewUserData newUserData) {
         Response response =
-                getDefaultRequestSpecification()
-                        .body(userRegisterRequestBody)
+                given()
+                        .baseUri(BASE_URI)
+                        .contentType(ContentType.JSON)
+                        .body(newUserData)
                         .post(USER_LOGIN);
         return response;
     }
-    @Step("Send DELETE request to /api/auth/user")
-    public Response sendDeleteRequestUser(String authorizationToken) {
+
+    @Step("Delete user(api)")
+    public Response deleteUser(String authorizationToken) {
         Response response =
-                (Response) getDefaultRequestSpecification()
+                given()
+                        .baseUri(BASE_URI)
+                        .contentType(ContentType.JSON)
                         .header("Authorization", authorizationToken)
                         .delete(USER_INFO);
-       USER_INFO return response;
+      return response;
     }
 }
