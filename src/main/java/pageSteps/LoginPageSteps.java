@@ -1,11 +1,8 @@
 package pageSteps;
 
-import io.restassured.response.Response;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import pageObject.LoginPage;
 import io.qameta.allure.*;
-import pageObject.MainPage;
 
 public class LoginPageSteps {
     private final WebDriver webDriver;

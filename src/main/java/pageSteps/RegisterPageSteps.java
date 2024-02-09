@@ -2,8 +2,6 @@ package pageSteps;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
-import pageObject.LoginPage;
-import pageObject.MainPage;
 import pageObject.RegisterPage;
 
 public class RegisterPageSteps {
